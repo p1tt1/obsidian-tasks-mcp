@@ -5,7 +5,6 @@ import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js"
 import {
   CallToolRequestSchema,
   ListToolsRequestSchema,
-  ToolSchema,
 } from "@modelcontextprotocol/sdk/types.js";
 import fs from "fs/promises";
 import path from "path";
@@ -115,14 +114,13 @@ export const QueryTasksArgsSchema = z.object({
   query: z.string(),
 });
 
-const ToolInputSchema = ToolSchema.shape.inputSchema;
-type ToolInput = z.infer<typeof ToolInputSchema>;
+type ToolInput = Record<string, unknown>;
 
 // Server setup
 const server = new Server(
   {
     name: "obsidian-tasks-mcp",
-    version: "0.1.4",
+    version: "0.1.8",
   },
   {
     capabilities: {
